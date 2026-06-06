@@ -1,0 +1,43 @@
+services:
+  # ─── Backend ──────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: datasmith-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=Datasmith AI Agent
+      - APP_VERSION=0.1.0
+      - DEBUG=false
+      - ALLOWED_ORIGINS=["http://localhost:80","http://localhost:3000","http://localhost:5173"]
+      - UPLOAD_DIR=/app/uploads
+    volumes:
+      - uploads_data:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ─── Frontend ─────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000
+    container_name: datasmith-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  uploads_data:
+    driver: local
