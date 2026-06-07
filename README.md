@@ -1,50 +1,173 @@
-# 🤖 Datasmith — AI Agent Application
+#  Datasmith AI Agent
 
-A **production-ready** full-stack scaffold for building AI Agent applications. Features a polished chat interface, multi-file upload, agent trace visualization, and a structured FastAPI backend — all ready to plug your AI model into.
-
----
-
-## ✨ Features
-
-| Area | Details |
-|---|---|
-| **Chat UI** | Real-time chat bubbles with user/assistant avatars, timestamps, auto-scroll |
-| **File Upload** | Multi-file drag-and-drop with type/size validation, file chips |
-| **Agent Trace** | Step-by-step collapsible trace panel with status icons and durations |
-| **Result Panel** | Formatted output area with clipboard copy |
-| **Responsive** | Sidebar + chat + panels layout that scales cleanly |
-| **Dark Mode** | Dark-first design with glassmorphism and gradient accents |
+Datasmith is a multimodal AI Agent capable of processing and analyzing multiple input formats including text, PDFs, images, audio files, and URLs. The system uses FastAPI for backend orchestration, React + TypeScript for the frontend, Groq LLMs for reasoning and summarization, and a modular agent pipeline with trace visualization.
 
 ---
 
-## 🏗 Project Structure
+## Live Deployment
 
-```
+### Frontend
+
+https://full-stack-ai-agent-frontend-k56u.onrender.com/
+
+### Backend API
+
+https://full-stack-ai-agent-1-6rwq.onrender.com/
+
+### API Documentation
+
+https://full-stack-ai-agent-1-6rwq.onrender.com/docs
+
+---
+
+## Features
+
+### Conversational AI Agent
+
+* Multi-turn chat interface
+* Session-based conversations
+* Streaming responses
+* Intent-aware processing
+
+### PDF Analysis
+
+* Upload PDF documents
+* Extract and analyze text
+* Summarization
+* Question Answering
+
+### Image Analysis
+
+* OCR extraction
+* Text understanding
+* Visual content analysis
+
+### Audio Processing
+
+* Audio transcription using Groq Whisper
+* Automatic summarization
+* Multi-format support:
+
+  * WAV
+  * MP3
+  * M4A
+  * OGG
+  * FLAC
+
+### URL Analysis
+
+* Extract content from web pages
+* Summarize webpage content
+* Question answering over extracted text
+
+### Agent Trace Visualization
+
+* Step-by-step execution tracking
+* Processing timeline
+* Tool execution details
+* Performance monitoring
+
+---
+
+## System Architecture
+
+Input Sources
+
+* User Text
+* PDF Documents
+* Images
+* Audio Files
+* URLs
+
+↓
+
+Input Processing Layer
+
+* PDF Parser
+* OCR Engine
+* Audio Transcriber
+* URL Extractor
+
+↓
+
+Agent Core
+
+* Intent Classification
+* Context Aggregation
+* Multi-Agent Planning
+* Tool Selection
+
+↓
+
+Groq LLM Layer
+
+* Summarization
+* Question Answering
+* Explanation
+* Reasoning
+
+↓
+
+Output Layer
+
+* Final Response
+* Agent Trace
+* Execution Metadata
+
+---
+
+## Technology Stack
+
+### Frontend
+
+* React 19
+* TypeScript
+* Vite
+* Tailwind CSS
+* Axios
+* Lucide React
+
+### Backend
+
+* FastAPI
+* Python 3.12
+* Pydantic
+* Uvicorn
+
+### AI Stack
+
+* Groq API
+* LangGraph
+* OCR
+* Whisper Transcription
+
+### Deployment
+
+* Docker
+* Render
+
+---
+
+## Project Structure
+
+```text
 Datasmith/
-├── frontend/               # React + Vite + TypeScript + TailwindCSS v4
-│   ├── src/
-│   │   ├── api/            # Axios API client
-│   │   ├── components/
-│   │   │   ├── Chat/       # MessageHistory, InputBox, FileUpload
-│   │   │   ├── AgentTrace/ # Trace panel
-│   │   │   ├── ResultPanel/# Result display
-│   │   │   └── Sidebar/    # Nav sidebar
-│   │   ├── hooks/          # useChat, useFileUpload
-│   │   └── types/          # Shared TypeScript types
-│   ├── Dockerfile
-│   ├── nginx.conf
-│   └── .env.example
 │
-├── backend/                # FastAPI + Python 3.12
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── backend/
 │   ├── app/
-│   │   ├── api/routes/     # health.py, chat.py, upload.py
-│   │   ├── core/           # config.py, cors.py
-│   │   ├── models/         # schemas.py (Pydantic)
-│   │   ├── services/       # agent_service.py, upload_service.py
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── services/
 │   │   └── main.py
-│   ├── requirements.txt
+│   │
 │   ├── Dockerfile
-│   └── .env.example
+│   └── requirements.txt
 │
 ├── docker-compose.yml
 └── README.md
@@ -52,75 +175,68 @@ Datasmith/
 
 ---
 
-## 🚀 Quick Start
+## Local Setup
 
-### Prerequisites
-- Node.js ≥ 20
-- Python ≥ 3.12
-- Docker & Docker Compose (for containerized setup)
-
----
-
-### Option A — Local Development
-
-#### 1. Backend
+### Backend
 
 ```bash
 cd backend
 
-# Create virtual environment
-python -m venv .venv
-.venv\Scripts\activate          # Windows
-# source .venv/bin/activate     # macOS/Linux
+python -m venv venv
 
-# Install dependencies
+# Windows
+venv\Scripts\activate
+
 pip install -r requirements.txt
 
-# Copy and configure environment
-copy .env.example .env
-
-# Start development server
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload
 ```
 
-Backend will be available at: http://localhost:8000  
-Swagger docs at: http://localhost:8000/docs
+Backend runs at:
 
-#### 2. Frontend
+```text
+http://localhost:8000
+```
+
+---
+
+### Frontend
 
 ```bash
 cd frontend
 
-# Copy and configure environment
-copy .env.example .env
-
-# Install dependencies
 npm install
 
-# Start development server
 npm run dev
 ```
 
-Frontend will be available at: http://localhost:5173
+Frontend runs at:
 
----
-
-### Option B — Docker Compose (Production)
-
-```bash
-# From the project root
-docker-compose up --build
+```text
+http://localhost:5173
 ```
 
-| Service | URL |
-|---|---|
-| Frontend (Nginx) | http://localhost:80 |
-| Backend (FastAPI) | http://localhost:8000 |
-| API Docs | http://localhost:8000/docs |
+---
+
+## Environment Variables
+
+### Backend
+
+```env
+GROQ_API_KEY=your_api_key
+GROQ_MODEL=llama-3.3-70b-versatile
+ALLOWED_ORIGINS=http://localhost:5173
+```
+
+### Frontend
+
+```env
+VITE_API_URL=http://localhost:8000
+```
 
 ---
 
-## 📡 API Reference
+## API Endpoints
 
 ### Health
 
@@ -128,107 +244,91 @@ docker-compose up --build
 GET /api/v1/health
 ```
 
-Returns app status, version, and timestamp.
-
 ### Chat
 
 ```http
 POST /api/v1/chat
-Content-Type: application/json
-
-{
-  "session_id": "optional-uuid",
-  "message": "Your question here",
-  "file_ids": ["file-uuid-1", "file-uuid-2"]
-}
 ```
 
-Returns:
-```json
-{
-  "session_id": "...",
-  "message": { "id": "...", "role": "assistant", "content": "..." },
-  "trace": [{ "step": 1, "name": "Input Validation", "status": "done", "duration_ms": 12 }],
-  "result": "..."
-}
-```
-
-### Upload
+### Streaming Chat
 
 ```http
-POST /api/v1/upload
-Content-Type: multipart/form-data
-
-files: [File, File, ...]
+POST /api/v1/chat/stream
 ```
 
-Returns file metadata including IDs to reference in chat requests.
-
-### Sessions
+### PDF Upload
 
 ```http
-GET /api/v1/chat/sessions
-GET /api/v1/chat/sessions/{session_id}/history
+POST /api/v1/pdf/upload
+```
+
+### Image Upload
+
+```http
+POST /api/v1/image/upload
+```
+
+### Audio Upload
+
+```http
+POST /api/v1/audio/upload
+```
+
+### Multi-Input Analysis
+
+```http
+POST /api/v1/analyze
 ```
 
 ---
 
-## 🔌 Plugging In Your AI
+## Design Decisions
 
-1. Open `backend/app/services/agent_service.py`
-2. Replace the stub logic inside `process_chat()` with your LLM/agent call:
+### Why FastAPI?
 
-```python
-async def process_chat(session_id, user_message, file_ids=None):
-    # Replace this block:
-    response = await your_llm_client.complete(user_message)
-    
-    trace = [TraceStep(step=1, name="LLM Call", status="done", ...)]
-    assistant_msg = ChatMessage(role="assistant", content=response.text)
-    
-    return ChatResponse(session_id=session_id, message=assistant_msg, trace=trace)
-```
+* High performance
+* Async support
+* Automatic OpenAPI documentation
+* Easy deployment
 
-The API layer, session management, and UI remain unchanged.
+### Why Groq?
 
----
+* Low latency inference
+* High-quality reasoning models
+* Fast transcription support
 
-## 🛠 Tech Stack
+### Why Modular Services?
 
-| Layer | Technology |
-|---|---|
-| Frontend Framework | React 19 + Vite 6 |
-| Language | TypeScript |
-| Styling | TailwindCSS v4 |
-| HTTP Client | Axios |
-| Icons | Lucide React |
-| Backend Framework | FastAPI |
-| Validation | Pydantic v2 |
-| Server | Uvicorn |
-| Containerization | Docker + Nginx |
+* Easy maintenance
+* Separation of concerns
+* Extensible architecture
 
 ---
 
-## 📦 Environment Variables
+## Deployment
 
-### Backend (`backend/.env`)
+The application is containerized using Docker and deployed on Render.
 
-| Variable | Default | Description |
-|---|---|---|
-| `APP_NAME` | `Datasmith AI Agent` | Application name |
-| `DEBUG` | `false` | Debug mode |
-| `ALLOWED_ORIGINS` | `[...]` | CORS allowed origins |
-| `MAX_UPLOAD_SIZE_MB` | `50` | Max upload size |
-| `UPLOAD_DIR` | `uploads` | Upload directory |
+Deployment artifacts included:
 
-### Frontend (`frontend/.env`)
-
-| Variable | Default | Description |
-|---|---|---|
-| `VITE_API_URL` | `http://localhost:8000` | Backend base URL |
+* Dockerfile
+* requirements.txt
+* Environment variable configuration
+* Live deployment URL
 
 ---
 
-## 📝 License
+## Future Improvements
 
-MIT — use freely, build something great.
+* RAG support with vector databases
+* Persistent conversation storage
+* User authentication
+* Tool marketplace
+* Multi-agent collaboration
+
+---
+
+## Author
+
+Ayush Metkar
+
