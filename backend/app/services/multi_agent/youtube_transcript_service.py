@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 class YouTubeTranscriptService:
     @staticmethod
     def extract_video_id(url: str) -> Optional[str]:
-        pattern = r'(?:https?://)?(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/)([a-zA-Z0-9_-]{11})'
+        pattern = r'(?:https?://)?(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/|youtube\.com/shorts/)([a-zA-Z0-9_-]{11})'
         match = re.search(pattern, url)
         return match.group(1) if match else None
 
@@ -17,7 +17,7 @@ class YouTubeTranscriptService:
     def find_video_ids(text: str) -> List[str]:
         if not text:
             return []
-        pattern = r'(?:https?://)?(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/)([a-zA-Z0-9_-]{11})'
+        pattern = r'(?:https?://)?(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/|youtube\.com/shorts/)([a-zA-Z0-9_-]{11})'
         return re.findall(pattern, text)
 
     @classmethod
