@@ -303,6 +303,8 @@ POST /api/v1/analyze
 * Separation of concerns
 * Extensible architecture
 
+### Architecture
+![Architecture]("C:\Users\ayush\Downloads\Ai_agent.png")
 ---
 
 ## Deployment
