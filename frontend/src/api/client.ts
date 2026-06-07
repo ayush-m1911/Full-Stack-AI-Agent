@@ -11,7 +11,9 @@ import type {
   MultiAnalysisResponse,
 } from '../types';
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:8000';
 
 export const apiClient = axios.create({
   baseURL: `${BASE_URL}/api/v1`,
@@ -81,7 +83,7 @@ export async function streamMessage(
           const event: StreamEvent = JSON.parse(stripped);
           onEvent(event);
           if (event.type === 'done') { onDone(); return; }
-        } catch {   }
+        } catch { }
       }
     }
     onDone();
@@ -115,7 +117,7 @@ export async function uploadImage(file: File): Promise<ImageUploadResponse> {
   formData.append('file', file);
   const { data } = await apiClient.post<ImageUploadResponse>('/image/upload', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
-    timeout: 120_000,  
+    timeout: 120_000,
   });
   return data;
 }
@@ -131,7 +133,7 @@ export async function uploadAudio(file: File): Promise<AudioUploadResponse> {
   formData.append('file', file);
   const { data } = await apiClient.post<AudioUploadResponse>('/audio/upload', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
-    timeout: 300_000,  
+    timeout: 300_000,
   });
   return data;
 }
@@ -170,7 +172,7 @@ export async function analyzeMultiInput(
   files.forEach((f) => formData.append('files', f));
   const { data } = await apiClient.post<MultiAnalysisResponse>('/analyze', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
-    timeout: 600_000, 
+    timeout: 600_000,
   });
   return data;
 }
