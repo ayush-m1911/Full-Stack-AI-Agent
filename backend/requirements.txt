@@ -12,7 +12,5 @@ PyMuPDF==1.24.14
 pytesseract==0.3.13
 Pillow==10.4.0
 easyocr==1.7.2
-openai-whisper==20231117
-ffmpeg-python==0.2.0
 langgraph>=0.0.60
 youtube-transcript-api>=1.2.4
