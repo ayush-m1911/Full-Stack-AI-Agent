@@ -15,10 +15,11 @@ class Settings(BaseSettings):
 
     
     ALLOWED_ORIGINS: List[str] = [
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-    ]
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "https://full-stack-ai-agent-frontend-k56u.onrender.com",
+]
 
    
     MAX_UPLOAD_SIZE_MB: int = 50
