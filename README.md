@@ -304,7 +304,7 @@ POST /api/v1/analyze
 * Extensible architecture
 
 ### Architecture
-![Architecture]("C:\Users\ayush\Downloads\Ai_agent.png")
+![Architecture]("docs/Architecture.png")
 ---
 
 ## Deployment
