@@ -304,7 +304,7 @@ POST /api/v1/analyze
 * Extensible architecture
 
 ### Architecture
-![Architecture]("docs/Architecture.png")
+![Architecture Diagram](docs/Architecture.png)
 ---
 
 ## Deployment
